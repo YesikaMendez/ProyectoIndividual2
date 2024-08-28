@@ -6,16 +6,16 @@ archivo_excel = '../data/Telefonia_movil.xlsx'
 
 # 'sheet_name=0' lee la primera hoja (índice basado en 0)
 df_hoja3 = pd.read_excel(archivo_excel, sheet_name=3)
-df_hoja4 = pd.read_excel(archivo_excel, sheet_name=4)
+df_hoja5 = pd.read_excel(archivo_excel, sheet_name=5)
 
 # Eliminar columna llamada 'Periodo'
 df_hoja3 = df_hoja3.drop(columns=['Periodo'], errors='ignore')
 
 # Eliminar columna llamada 'Periodo'
-df_hoja4= df_hoja4.drop(columns=['Periodo'], errors='ignore')
+df_hoja5= df_hoja5.drop(columns=['Periodo','Total de accesos pospago','Total de accesos prepago'], errors='ignore')
 
 # Realizar un merge entre df_hoja3 y df_hoja4 usando 'año' y 'trimestre' como claves
-df_merged = pd.merge(df_hoja3, df_hoja4, on=['Año', 'Trimestre'], how='inner')
+df_merged = pd.merge(df_hoja3, df_hoja5, on=['Año', 'Trimestre'], how='inner')
 
 # Verificar el contenido del DataFrame combinado
 print("Contenido del DataFrame después del merge:")
@@ -42,7 +42,7 @@ df_merged = df_merged.rename(columns={
     'Año': 'anio',
     'Trimestre': 'trimestre',
     'Ingresos (miles de $)': 'ingresos',
-    'Accesos por cada 100 hab': 'accesos',
+    'Total de accesos operativos': 'accesos',
 
 })
 # Cargar los datos en la tabla de MySQL
